@@ -8,40 +8,37 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1b5e20">
 
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9416108474178872"
+     crossorigin="anonymous"></script>
+
     <style>
         :root { --primary: #1b5e20; --bg: #f4f7f4; --secondary: #ff9800; }
         * { box-sizing: border-box; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); padding: 10px; margin: 0; }
         .container { max-width: 500px; margin: auto; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); min-height: 96vh; display: flex; flex-direction: column; }
 
-        /* Install Row */
+        /* Ad Styling */
+        .ad-container { margin: 15px 0; text-align: center; background: #eee; border-radius: 8px; min-height: 100px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+
         #install-row { display: none; background: #fff3e0; padding: 10px; border-radius: 10px; border: 1px solid #ffe0b2; margin-bottom: 15px; text-align: center; }
         .btn-install { background: #e65100; color: white; border: none; padding: 8px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; }
-
-        /* Clock */
         .time-header { background: #e8f5e9; padding: 10px; border-radius: 10px; text-align: center; margin-bottom: 15px; border: 1px solid #c8e6c9; }
         #current-date { font-size: 14px; color: #555; display: block; font-weight: 500; }
         #current-time { font-size: 20px; color: var(--primary); font-weight: bold; display: block; }
-
         h1 { text-align: center; color: var(--primary); font-size: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; margin-bottom: 10px; }
         .btn-summary { background: var(--secondary); color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; font-weight: bold; margin-bottom: 15px; cursor: pointer; }
         .summary-card { background: #fff8e1; border: 2px dashed #ffb300; padding: 12px; border-radius: 10px; margin-bottom: 15px; font-size: 14px; }
         .category-item { background: #f1f8e9; margin: 10px 0; padding: 18px; border-radius: 12px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; border: 1px solid #dcedc8; }
         .hidden { display: none; }
-        
-        /* Items Row */
         .item-row { padding: 15px 0; border-bottom: 1px solid #eee; }
         .item-name { font-weight: bold; display: flex; align-items: center; gap: 8px; margin-bottom: 10px; color: #333; }
         .controls-grid { display: grid; grid-template-columns: 0.8fr 1.5fr 0.8fr; gap: 8px; margin-bottom: 8px; }
         input, select { padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; width: 100%; }
         .total-box { background: #fffde7; padding: 8px; border-radius: 6px; text-align: right; font-weight: bold; color: #d32f2f; font-size: 14px; }
-        
         .footer-btns { position: sticky; bottom: 0; background: white; padding: 15px 0; display: flex; gap: 10px; z-index: 10; }
         button { flex: 1; padding: 14px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
         .btn-back { background: #eceff1; color: #455a64; }
         .btn-save { background: var(--primary); color: white; }
-
-        /* WhatsApp Section with Contact Picker */
         .whatsapp-section { margin-top: auto; padding-top: 20px; border-top: 2px solid #eee; }
         .wa-input-group { display: flex; gap: 8px; margin-bottom: 10px; }
         .num-input { flex: 1; border: 2px solid #81c784; font-size: 16px; font-weight: bold; padding: 10px; border-radius: 8px; }
@@ -64,6 +61,17 @@
 
     <div id="home-page">
         <h1>সব ধরনের সামগ্রী লিস্ট</h1>
+
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-9416108474178872"
+                 data-ad-slot="auto"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
         <button class="btn-summary" onclick="toggleSummary()">অর্ডার সামারি দেখুন</button>
         <div id="summary-view" class="summary-card hidden">
             <div id="summary-content">কোনো আইটেম সিলেক্ট করা নেই।</div>
@@ -92,6 +100,7 @@
 </div>
 
 <script>
+    // Baki saara JavaScript waisa hi rahega...
     function updateClock() {
         const now = new Date();
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -100,7 +109,6 @@
     }
     setInterval(updateClock, 1000); updateClock();
 
-    // Contact Picker Logic
     async function selectFromContacts() {
         if (!('contacts' in navigator && 'select' in navigator.contacts)) {
             return alert("আপনার ব্রাউজার কন্টাক্ট লিস্ট সাপোর্ট করে না। দয়া করে নম্বরটি লিখুন।");
@@ -140,8 +148,8 @@
         "A) নিত্যপ্রয়োজনীয় সবজি": ["আলু","পেঁয়াজ","আদা","রসুন","কাঁচা লঙ্কা"],
         "B) ডাল ও শস্য": ["চাল","আটা","ময়দা","সর্ষের তেল","চিনি","চা পাতা","মুসুর ডাল","মুড়ি","গুড়","মটর","মুগ ডাল","ছোলা","অড়হর ডাল"],
         "C) মশলার তালিকা": ["হলুদ ","কাশ্মীরি লঙ্কা গুঁড়ো","ধনে গুঁড়ো "," জিরে গুঁড়ো ","নুন / লবণ ","বিরিয়ানি মশলা","চিকেন মশলা","মিট মশলা / মাংসের মশলা","পোস্ত","সর্ষে","তেজপাতা","পাঁচ ফোড়ন","লবঙ্গ ","গরম মশলা ","শাহী গরম মশলা","মৌরি","গোলমরিচ","কালো জিরে ","হিং ","দারুচিনি","এলাচ","বড় এলাচ","কসুরি মেথি","জোয়ান","চাট মশলা","জায়ফল","জয়িত্রী"],
-        "D) তাজা সবজি": ["শসা","ধনে পাতা","লেবু","গাজর","বিট","শিম","টমেটো","পালং শাক","পুঁই শাক","লাল শাক","বেগুন","পটল","কাঁচকলা","করলা","কুমড়ো","ঢ্যাঁড়স","ফুলকপি","বাঁধাকপি","মুলো","মুলো শাক ","কলমি শাক ","সুশনি শাক","ওল","লাউ","ঝিঙে","পেঁপে","চিচিঙ্গা"],
-        "E) তাজা ফল": ["কলা","আপেল","পেয়ারা","পেঁপে","আঙুর","বেদানা","কমলালেবু","পাতিলেবু","আম","কাঁঠাল","লিচু","তরমুজ","খরমুজ","কালোজাম","আতা","নারকেল","ডাব","新技术লকী","সবেদা","বেল","কুল","আনারস"],
+        "D) তাজা সবজি": ["শসা","ধনে পাতা","লেবু","গাজর","বিট","শিম","টমেটো","পালং শাক","পুঁই শাক","লাল শাক","বেগুন","পটল","কাঁচকলা","করলা","কুমড়ো","ঢ্যাঁড়স","ফুলকপি","বাঁধাকপি","মুলো","মুলো শাক ","কলমি শাক ","সুশনি শাক","ওল","লাউ","ঝিঙে","পেপে","চিচিঙ্গা"],
+        "E) তাজা ফল": ["কলা","আপেল","পেয়ারা","পেপে","আঙুর","বেদানা","কমলালেবু","পাতিলেবু","আম","কাঁঠাল","লিচু","তরমুজ","খরমুজ","কালোজাম","আতা","নারকেল","ডাব","新技术লকী","সবেদা","বেল","কুল","আনারস"],
         "F) শুকনো ফলের তালিকা": ["কাজু বাদাম","আখরোট","খেজুর","কাঠবাদাম","কিসমিস","চীনাবাদাম","ডুমুর (শুকনো)","পেস্তা","মাখানা","খুবানি","জাফরান / কেশর"],
         "G) syed": ["1","2"]
     };
