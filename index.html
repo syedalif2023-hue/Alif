@@ -6,48 +6,68 @@
     <title>Smart Grocery App</title>
     
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1b5e20">
+    <meta name="theme-color" content="#FFD700">
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9416108474178872"
      crossorigin="anonymous"></script>
 
     <style>
-        :root { --primary: #1b5e20; --bg: #f4f7f4; --secondary: #ff9800; }
+        :root { --primary: #1b5e20; --bg: #FFD700; --secondary: #e65100; }
         * { box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); padding: 10px; margin: 0; }
-        .container { max-width: 500px; margin: auto; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); min-height: 96vh; display: flex; flex-direction: column; }
+        
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--bg); padding: 10px; margin: 0; }
 
-        .ad-container { margin: 15px 0; text-align: center; background: #eee; border-radius: 8px; min-height: 100px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); min-height: 96vh; display: flex; flex-direction: column; }
+
+        /* Banner Styling - Automatic Switch ke liye */
+        .ad-container { 
+            margin: 15px 0; 
+            text-align: center; 
+            background: #f1f1f1; 
+            border-radius: 8px; 
+            min-height: 100px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden; 
+            position: relative;
+        }
+        #ad-img { width: 100%; height: auto; transition: opacity 0.5s ease-in-out; display: block; border-radius: 8px; }
 
         #install-row { display: none; background: #fff3e0; padding: 10px; border-radius: 10px; border: 1px solid #ffe0b2; margin-bottom: 15px; text-align: center; }
         .btn-install { background: #e65100; color: white; border: none; padding: 8px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; }
-        .time-header { background: #e8f5e9; padding: 10px; border-radius: 10px; text-align: center; margin-bottom: 15px; border: 1px solid #c8e6c9; }
+        
+        .time-header { background: #fffde7; padding: 10px; border-radius: 10px; text-align: center; margin-bottom: 15px; border: 1px solid #fbc02d; }
         #current-date { font-size: 14px; color: #555; display: block; font-weight: 500; }
         #current-time { font-size: 20px; color: var(--primary); font-weight: bold; display: block; }
+
         h1 { text-align: center; color: var(--primary); font-size: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; margin-bottom: 10px; }
         .btn-summary { background: var(--secondary); color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; font-weight: bold; margin-bottom: 15px; cursor: pointer; }
-        .summary-card { background: #fff8e1; border: 2px dashed #ffb300; padding: 12px; border-radius: 10px; margin-bottom: 15px; font-size: 14px; }
-        .category-item { background: #f1f8e9; margin: 10px 0; padding: 18px; border-radius: 12px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; border: 1px solid #dcedc8; }
+        
+        .summary-card { background: #fff9c4; border: 2px dashed #fbc02d; padding: 12px; border-radius: 10px; margin-bottom: 15px; font-size: 14px; }
+        .category-item { background: #f9fbe7; margin: 10px 0; padding: 18px; border-radius: 12px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; border: 1px solid #dcedc8; }
+        
         .hidden { display: none; }
         .item-row { padding: 15px 0; border-bottom: 1px solid #eee; }
         .item-name { font-weight: bold; display: flex; align-items: center; gap: 8px; margin-bottom: 10px; color: #333; }
         .controls-grid { display: grid; grid-template-columns: 0.8fr 1.5fr 0.8fr; gap: 8px; margin-bottom: 8px; }
+        
         input, select { padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; width: 100%; }
         .total-box { background: #fffde7; padding: 8px; border-radius: 6px; text-align: right; font-weight: bold; color: #d32f2f; font-size: 14px; }
+        
         .footer-btns { position: sticky; bottom: 0; background: white; padding: 15px 0; display: flex; gap: 10px; z-index: 10; }
         button { flex: 1; padding: 14px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
         .btn-back { background: #eceff1; color: #455a64; }
         .btn-save { background: var(--primary); color: white; }
+
         .whatsapp-section { margin-top: auto; padding-top: 20px; border-top: 2px solid #eee; }
         .wa-input-group { display: flex; gap: 8px; margin-bottom: 10px; }
         .num-input { flex: 1; border: 2px solid #81c784; font-size: 16px; font-weight: bold; padding: 10px; border-radius: 8px; }
         .btn-contact { background: #007bff; color: white; padding: 0 15px; font-size: 18px; border-radius: 8px; border: none; }
         .btn-wa { background: #25D366; color: white; width: 100%; font-size: 18px; height: 55px; display: flex; align-items: center; justify-content: center; gap: 10px; border-radius: 10px; border: none; }
         
-        /* New Footer Links Styling */
         .policy-footer { text-align: center; padding: 20px 0; margin-top: 10px; font-size: 13px; border-top: 1px solid #eee; }
-        .policy-footer a { color: #666; text-decoration: none; margin: 0 10px; }
-        .policy-footer a:hover { color: var(--primary); text-decoration: underline; }
+        .policy-footer a { color: #666; text-decoration: none; margin: 0 10px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -66,9 +86,13 @@
     <div id="home-page">
         <h1>সব ধরনের সামগ্রী লিস্ট</h1>
 
-        <div class="ad-container">
+        <div class="ad-container" id="ad-wrapper">
+            <a id="ad-link" href="#" target="_blank">
+                <img id="ad-img" src="https://via.placeholder.com/400x100?text=Posters+Loading..." alt="Promotion">
+            </a>
+            
             <ins class="adsbygoogle"
-                 style="display:block"
+                 style="display:none" 
                  data-ad-client="ca-pub-9416108474178872"
                  data-ad-slot="auto"
                  data-ad-format="auto"
@@ -105,12 +129,14 @@
     <div class="policy-footer">
         <a href="policy.html">Privacy Policy</a> | 
         <a href="mailto:syedalif2017@gmail.com">Contact Us</a>
-        <p style="color: #999; margin-top: 10px;">&copy; 2026 Smart Grocery App</p>
+        <p style="color: #666; margin-top: 10px;">&copy; 2026 Smart Grocery App</p>
     </div>
 </div>
 
+<script src="ads.js"></script>
+
 <script>
-    // All JavaScript remains exactly the same
+    // --- ORIGINAL APP LOGIC ---
     function updateClock() {
         const now = new Date();
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
