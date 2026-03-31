@@ -19,7 +19,6 @@
 
         .container { max-width: 500px; margin: auto; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); min-height: 96vh; display: flex; flex-direction: column; }
 
-        /* Banner Styling - Automatic Switch ke liye */
         .ad-container { 
             margin: 15px 0; 
             text-align: center; 
@@ -64,6 +63,9 @@
         .wa-input-group { display: flex; gap: 8px; margin-bottom: 10px; }
         .num-input { flex: 1; border: 2px solid #81c784; font-size: 16px; font-weight: bold; padding: 10px; border-radius: 8px; }
         .btn-contact { background: #007bff; color: white; padding: 0 15px; font-size: 18px; border-radius: 8px; border: none; }
+        
+        /* --- NAYA BUTTON CSS (ISKO ADD KIYA HAI) --- */
+        .btn-save-notes { background: #ffc107; color: #000; width: 100%; font-size: 18px; height: 52px; display: flex; align-items: center; justify-content: center; gap: 10px; border-radius: 10px; border: none; margin-bottom: 10px; font-weight: bold; cursor: pointer; }
         .btn-wa { background: #25D366; color: white; width: 100%; font-size: 18px; height: 55px; display: flex; align-items: center; justify-content: center; gap: 10px; border-radius: 10px; border: none; }
         
         .policy-footer { text-align: center; padding: 20px 0; margin-top: 10px; font-size: 13px; border-top: 1px solid #eee; }
@@ -123,6 +125,11 @@
             <input type="tel" id="wa-num" class="num-input" placeholder="91XXXXXXXXXX">
             <button id="btn-picker" class="btn-contact" onclick="selectFromContacts()" title="Contact থেকে বাছুন">👤</button>
         </div>
+
+        <button class="btn-save-notes" onclick="saveToNotes()">
+            <span>📝 Save Order (Keep/Notes)</span>
+        </button>
+
         <button class="btn-wa" onclick="sendWA()"><span>WhatsApp-এ অর্ডার দিন</span></button>
     </div>
 
@@ -136,7 +143,6 @@
 <script src="ads.js"></script>
 
 <script>
-    // --- ORIGINAL APP LOGIC ---
     function updateClock() {
         const now = new Date();
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -182,11 +188,11 @@
 
     const data = {
         "A) নিত্যপ্রয়োজনীয় সবজি": ["আলু","পেঁয়াজ","আদা","রসুন","কাঁচা লঙ্কা"],
-        "B) ডাল ও শস্য": ["চাল","আটা","ময়দা","সর্ষের তেল","চিনি","চা পাতা","মুসুর ডাল","মুড়ি","গুড়","মটর","মুগ ডাল","ছোলা","অড়হর ডাল"],
+        "B) ডাল ও শস্য": ["চাল","আটা","ময়দা","সর্ষের তেল","চ চিনি","চা পাতা","মুসুর ডাল","মুড়ি","গুড়","মটর","মুগ ডাল","ছোলা","অড়হর ডাল"],
         "C) মশলার তালিকা": ["হলুদ ","কাশ্মীরি লঙ্কা গুঁড়ো","ধনে গুঁড়ো "," জিরে গুঁড়ো ","নুন / লবণ ","বিরিয়ানি মশলা","চিকেন মশলা","মিট মশলা / মাংসের মশলা","পোস্ত","সর্ষে","তেজপাতা","পাঁচ ফোড়ন","লবঙ্গ ","গরম মশলা ","শাহী গরম মশলা","মৌরি","গোলমরিচ","কালো জিরে ","হিং ","দারুচিনি","এলাচ","বড় এলাচ","কসুরি মেথি","জোয়ান","চাট মশলা","জায়ফল","জয়িত্রী"],
         "D) তাজা সবজি": ["শসা","ধনে পাতা","লেবু","গাজর","বিট","শিম","টমেটো","পালং শাক","পুঁই শাক","লাল শাক","বেগুন","পটল","কাঁচকলা","করলা","কুমড়ো","ঢ্যাঁড়স","ফুলকপি","বাঁধাকপি","মুলো","মুলো শাক ","কলমি শাক ","সুশনি শাক","ওল","লাউ","ঝিঙে","পেপে","চিচিঙ্গা"],
         "E) তাজা ফল": ["কলা","আপেল","পেয়ারা","পেপে","আঙুর","বেদানা","কমলালেবু","পাতিলেবু","আম","কাঁঠাল","লিচু","তরমুজ","খরমুজ","কালোজাম","আতা","নারকেল","ডাব","新技术লকী","সবেদা","বেল","কুল","আনারস"],
-        "F) শুকনো ফলের তালিকা": ["কাজু বাদাম","আখরোট","খেজুর","কাঠবাদাম","কিসমিস","চীনাবাদাম","ডুমুর (শুকনো)","পেস্তা","মাখানা","খুবানি","জাফরান / কেশর"],
+        "F) শুকনো ফলের তালিকা": ["কাজু বাদাম","আখরোট","খেজুর","কাঠবাদাম","কিসমিস","চীনামবাদাম","ডুমুর (শুকনো)","পেস্তা","মাখানা","খুবানি","জাফরান / কেশর"],
         "G) syed": ["1","2"]
     };
 
@@ -252,6 +258,34 @@
         }
         if(!hasItems) { content.innerHTML = "কোনো আইটেম সিলেক্ট করা নেই।"; totalDiv.innerText = ""; }
         else { content.innerHTML = html; totalDiv.innerText = "মোট বিল: ₹" + grandTotal.toFixed(2); }
+    }
+
+    // --- NAYA JAVASCRIPT LOGIC (SAVE TO KEEP NOTES) ---
+    function saveToNotes() {
+        let msg = "*🛒 বাজার লিস্ট ও বিল:*\n" + document.getElementById('current-date').innerText + "\n--------------------------\n";
+        let grandTotal = 0; let hasItems = false;
+        for (let key in selectedItems) {
+            let itm = selectedItems[key];
+            if(itm.qty > 0) {
+                let itemTotal = itm.unit === "Gm" ? (itm.rate/1000)*itm.qty : itm.qty*itm.rate;
+                msg += `\n✅ ${key}: ${itm.qty} ${itm.unit} x ${itm.rate} = ₹${itemTotal.toFixed(2)}`;
+                grandTotal += itemTotal; hasItems = true;
+            }
+        }
+        if(!hasItems) return alert("আইটেম সিলেক্ট করুন!");
+        msg += `\n\n--------------------------\n💰 সর্বমোট বিল: ₹${grandTotal.toFixed(2)}`;
+
+        // Web Share API: Android Chooser ki tarah kaam karega (Keep select karne ke liye)
+        if (navigator.share) {
+            navigator.share({
+                title: 'Order List',
+                text: msg
+            }).catch(console.error);
+        } else {
+            // Fallback: Agar share nahi chala toh clipboard me copy
+            navigator.clipboard.writeText(msg);
+            alert("কপি করা হয়েছে! Keep Notes-এ গিয়ে পেস্ট করুন।");
+        }
     }
 
     function sendWA() {
