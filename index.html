@@ -41,6 +41,11 @@
         #current-time { font-size: 20px; color: var(--primary); font-weight: bold; display: block; }
 
         h1 { text-align: center; color: var(--primary); font-size: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; margin-bottom: 10px; }
+        
+        /* কাস্টমার নেম ফিল্ডের স্টাইল */
+        .customer-section { margin-bottom: 15px; }
+        .customer-input { width: 100%; padding: 12px; border: 2px solid #fbc02d; border-radius: 8px; font-size: 16px; font-weight: bold; outline: none; }
+
         .btn-summary { background: var(--secondary); color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; font-weight: bold; margin-bottom: 15px; cursor: pointer; }
         
         .summary-card { background: #fff9c4; border: 2px dashed #fbc02d; padding: 12px; border-radius: 10px; margin-bottom: 15px; font-size: 14px; }
@@ -64,7 +69,6 @@
         .num-input { flex: 1; border: 2px solid #81c784; font-size: 16px; font-weight: bold; padding: 10px; border-radius: 8px; }
         .btn-contact { background: #007bff; color: white; padding: 0 15px; font-size: 18px; border-radius: 8px; border: none; }
         
-        /* --- NAYA BUTTON CSS (ISKO ADD KIYA HAI) --- */
         .btn-save-notes { background: #ffc107; color: #000; width: 100%; font-size: 18px; height: 52px; display: flex; align-items: center; justify-content: center; gap: 10px; border-radius: 10px; border: none; margin-bottom: 10px; font-weight: bold; cursor: pointer; }
         .btn-wa { background: #25D366; color: white; width: 100%; font-size: 18px; height: 55px; display: flex; align-items: center; justify-content: center; gap: 10px; border-radius: 10px; border: none; }
         
@@ -88,11 +92,14 @@
     <div id="home-page">
         <h1>সব ধরনের সামগ্রী লিস্ট</h1>
 
+        <div class="customer-section">
+            <input type="text" id="cust-name" class="customer-input" placeholder="কাস্টমারের নাম লিখুন (ঐচ্ছিক)">
+        </div>
+
         <div class="ad-container" id="ad-wrapper">
             <a id="ad-link" href="#" target="_blank">
                 <img id="ad-img" src="https://via.placeholder.com/400x100?text=Posters+Loading..." alt="Promotion">
             </a>
-            
             <ins class="adsbygoogle"
                  style="display:none" 
                  data-ad-client="ca-pub-9416108474178872"
@@ -260,9 +267,12 @@
         else { content.innerHTML = html; totalDiv.innerText = "মোট বিল: ₹" + grandTotal.toFixed(2); }
     }
 
-    // --- NAYA JAVASCRIPT LOGIC (SAVE TO KEEP NOTES) ---
     function saveToNotes() {
-        let msg = "*🛒 বাজার লিস্ট ও বিল:*\n" + document.getElementById('current-date').innerText + "\n--------------------------\n";
+        const custName = document.getElementById('cust-name').value;
+        let msg = "*🛒 বাজার লিস্ট ও বিল:*\n";
+        if(custName) msg += "👤 কাস্টমার: " + custName + "\n";
+        msg += "📅 " + document.getElementById('current-date').innerText + "\n--------------------------\n";
+        
         let grandTotal = 0; let hasItems = false;
         for (let key in selectedItems) {
             let itm = selectedItems[key];
@@ -275,14 +285,9 @@
         if(!hasItems) return alert("আইটেম সিলেক্ট করুন!");
         msg += `\n\n--------------------------\n💰 সর্বমোট বিল: ₹${grandTotal.toFixed(2)}`;
 
-        // Web Share API: Android Chooser ki tarah kaam karega (Keep select karne ke liye)
         if (navigator.share) {
-            navigator.share({
-                title: 'Order List',
-                text: msg
-            }).catch(console.error);
+            navigator.share({ title: 'Order List', text: msg }).catch(console.error);
         } else {
-            // Fallback: Agar share nahi chala toh clipboard me copy
             navigator.clipboard.writeText(msg);
             alert("কপি করা হয়েছে! Keep Notes-এ গিয়ে পেস্ট করুন।");
         }
@@ -290,8 +295,13 @@
 
     function sendWA() {
         const num = document.getElementById('wa-num').value;
+        const custName = document.getElementById('cust-name').value;
         if(!num) return alert("নম্বর দিন!");
-        let msg = "*🛒 বাজার লিস্ট ও বিল:*\n" + document.getElementById('current-date').innerText + "\n--------------------------\n";
+        
+        let msg = "*🛒 বাজার লিস্ট ও বিল:*\n";
+        if(custName) msg += "👤 *কাস্টমার: " + custName + "*\n";
+        msg += "📅 " + document.getElementById('current-date').innerText + "\n--------------------------\n";
+        
         let grandTotal = 0; let hasItems = false;
         for (let key in selectedItems) {
             let itm = selectedItems[key];
